@@ -95,50 +95,83 @@ def stepwise_minimization_HGOConverged(obj_f, x0, args_dict,F_threshold=1.0e16,
   loss=np.zeros(max_eliminate_step+1)
 
   # Step 0: optimize using the full initial set of active basis functions
+  # Calls obj_f to compute the loss function. *I THINK* this add_up_losses nonlinear_VSI_HGO.py 
+  # scipy minimize function calls obj_f with x0 and the args tuple below
   res=sp.minimize(obj_f, x0,jac=grad_f, method=method, 
                   args=(tendonStamp, meshName, lossFactor, combination,
                         current_activate_index,target_index),
                         bounds=bounds, options=method_options,callback=callback )
+
+  # x0 = res.x, replaces x0 with optimized coefficients from the first minimization
   x0=res.x
+  # store them in gamma_matrix
   gamma_matrix[current_activate_index,0]=x0
+  #store the loss value
   loss[0]=res.fun
   print('==============================================================')
   print('step=',0, ' current_activate_index=',current_activate_index,
         ' x0=',gamma_matrix[:,0],' loss=',loss[0] )
+  # write one row containg all num_theta coefficients and the loss value to file
+  # fsync ensures data is written to disk
   if save_to_file!=None:
     info=np.reshape(np.append(gamma_matrix[:,0],(loss[0])),(1,-1))
     np.savetxt(f,info)
     f.flush()
     os.fsync(f.fileno())
-
+  # stepwise elimination loop
   for step in range(len(current_activate_index)-1):
+    # break if reached max_eliminate_step
     if step==max_eliminate_step:
       break
     num_activate_index=len(current_activate_index)
+    # gamma_matrix_tem: stores the optimized coefficients for each "drop candidate"
+    # Row = coefficients after dropping one term
+    # Columns = which term was dropped
+    # loss_tem is initialized to a large number. If loss_tem started at zeros, then 
+    # frozen terms owudl incorrectly look like "perfect drops" (loss 0), and argmin 
+    # would pick them up.So, initialize to a large number so that if an indez is frozen, 
+    # its loss_tem value stays enormous, and argmin(loss_tem)will never choose it as the 
+    # best drop term
     gamma_matrix_tem=np.zeros((num_activate_index-1,num_activate_index))
     loss_tem=np.ones(num_activate_index)*1.0e20 # why*1e20?
+
+
     for j in range(len(current_activate_index)):
+      # loop over each active basis term index
       try_index=current_activate_index[j]
       # continue if j is in the frozen_index
       if try_index in frozen_index:
         continue
-        
+      
+      # create temporary variables with the j-th active term removed
       current_activate_index_tem=np.delete(current_activate_index,j)
       x0_tem=np.delete(x0,j)
       bounds_tem=None
+      # if bounds are provided, remove the j-th row
       if 'bounds' in args_dict.keys():
         bounds_tem=np.delete(bounds,j,0)
+
+      # again minimize the objective function with the j-th term removed
       res=sp.minimize(obj_f, x0_tem,jac=grad_f,  method=method, 
                       args=(tendonStamp, meshName, lossFactor, combination,
                             current_activate_index_tem,target_index),
                       bounds=bounds_tem, 
                       options=method_options,callback=callback)
+      #store the optimized coefficients and loss value
+      #loss_tem[j] is the "best loss" achieved by dropping the j-th term
       gamma_matrix_tem[:,j]=res.x
       loss_tem[j]=res.fun
     
+    # Choose the term to drop that gives the minimum loss. 
+    # Best drop = argmin(loss_tem) (i.e. inputs that minimize the loss)
     drop_index=np.argmin(loss_tem) 
     print('loss_try=',loss_tem)
-    loss_try=loss_tem[drop_index]  
+    loss_try=loss_tem[drop_index]
+    # Compute the "F" elimination criterion.
+    # (loss_try - current_loss) / current_loss = relative increase in loss after dropping one term
+    # multiplied by (num_base_orign - num_activate_index + 1) which grows as you eliminate more terms.
+    # This resembles a crude, scaled "F-test /parsimony criterion" Early eliminations are allowed more easily.
+    # Later elimination are penalized more heavily.
     F=(loss_try-loss[step])/loss[step]*(num_base_orign-num_activate_index+1)
     
     if F<F_threshold:
