@@ -174,16 +174,23 @@ def stepwise_minimization_HGOConverged(obj_f, x0, args_dict,F_threshold=1.0e16,
     # Later elimination are penalized more heavily.
     F=(loss_try-loss[step])/loss[step]*(num_base_orign-num_activate_index+1)
     
+    # Decide whether to accept the drop based on the F criterion and F_threshold
+    # If F<F_threshold, then accept the drop and remove the term from equation
     if F<F_threshold:
       current_activate_index=np.delete(current_activate_index,drop_index)
+      # update x0 by removing the dropped term
       x0=np.delete(x0,drop_index)
       if 'bounds' in args_dict.keys():
         bounds=np.delete(bounds,drop_index,0)
+      # update gamma_matrix and loss with the accepted drop
       gamma_matrix[current_activate_index,step+1]=gamma_matrix_tem[:,drop_index]
       loss[step+1]=loss_try
       
     else:
+      # If F>F_threshold, then do not accept the drop and terminate the elimination process
       break
+    
+    # save intermediate results to file if requested
     if save_to_file!=None:
       info=np.reshape(np.append(gamma_matrix[:,step+1],(loss[step+1])),(1,-1))
       np.savetxt(f,info)
@@ -191,5 +198,31 @@ def stepwise_minimization_HGOConverged(obj_f, x0, args_dict,F_threshold=1.0e16,
       os.fsync(f.fileno())
     print('==============================================================')
     print('step=',step+1, ' current_activate_index=',current_activate_index,' x0=',gamma_matrix[:,step+1],' loss=',loss[step+1] )
-    
+  
+  # return the final gamma_matrix and loss arrays
   return gamma_matrix, loss
+
+"""
+Gamme_matrix: coefficient values of basis functions at each elimination step
+Loss: objective function values at each elimination step
+
+How does this build on boundaryConditions.py?
+The stepwise_minimization_HGOConverged function does not directly build on boundaryConditions.py.
+
+The dependency is one layer down in nonlinear_VSI_HGO_ConvergedMesh_CG2.py where both the 
+boundaryConditions.py and stepwise_minimization_HGOConverged.py files are imported and used.
+
+obj_f is constructed such that it loads the mesh and the measured displacement data,
+marks boundary facets using the lambda functions defined in boundaryConditions.py,
+applie dirichlet/neumann boundary condtions, computes the loss against the measured displacement 
+and/or traction data, returns that loss to SciPy's minimize function called in stepwise_minimization_HGOConverged.py.
+
+Conceptually,
+boundaryConditions.py defines how to label geometry facets for given tendon conditions (intact or torn),
+obj_f uses those labels to set up the forward/adjoint solve and evaluate the loss,
+and stepwise_minimization_HGOConverged.py uses obj_f to perform the stepwise minimization.
+This is done by changing the active basis terms , reoptimizing the coefficients,
+and selecting which basis terms to keep or drop based on the change in loss.
+
+So: BoundaryConditions --> forward/adjoint solve & loss (obj_f) --> stepwise minimization of loss
+"""
