@@ -1,0 +1,228 @@
+import numpy as np
+import scipy.optimize as sp
+import os
+import sys
+
+"""
+The goal of the stepwise_minimization_HGOConverged function is to perform a 
+stepwise minimization of an objective function using the SciPy optimization library.
+SciPy uses the HGO algorithm to perform the optimization. The function takes in an 
+initial guess for the objective function, a set of arguments, and various options 
+for the optimization method. The function iteratively eliminates basis functions 
+from the optimization problem based on a threshold value for the change in the 
+objective function. The function returns the final optimized objective function 
+value and the corresponding basis function indices.
+"""
+
+def iter_cb(m):
+  print ("results = ", m)
+  
+def stepwise_minimization_HGOConverged(obj_f, x0, args_dict,F_threshold=1.0e16, 
+                                       method_options={}, grad_f=None, save_to_file=None):
+  ##
+  """
+  Docstring for stepwise_minimization_HGOConverged
+  
+  :param obj_f: Objective function (loss function) to be minimized
+  :param x0: Initial guess for the current active basis function coefficients
+  :param args_dict: Dictionary of additional arguments for the objective function
+      active terms, target vector index, number of theta, mesh name, tendon stamp,  
+      combination, loss factor
+  :param F_threshold: Threshold for change in objective function to eliminate basis 
+      functions
+  :param method_options: Options for the optimization method for SciPy's minimize function
+      (optional)
+  :param grad_f: Gradient of the objective function (optional). If not provided,
+      SciPy will approximate the gradient numerically. jac=grad_f in sp.minimize
+  :param save_to_file: Path to save intermediate results (optional).
+  """
+  callback=None
+  bounds=None
+  # current_activate_index: indices of the currently active basis functions
+  # list/array of basis-term indices that are currently active in the optimization
+  # this is the current constitutive model hypothesis being tested (subset of basis functions
+  # of the candidate library)
+  current_activate_index=args_dict['activate_basis_index']
+  # target_index: index of the target vector
+  target_index=args_dict['target_vector_index']
+  # num_theta: number of theta values. Total number of candidate terms (size of library)
+  num_theta=args_dict['num_theta']
+  # num_base_orign: number of basis functions
+  num_base_orign=len(current_activate_index)
+  # meshName: name of the mesh, used to load the mesh
+  meshName = args_dict['meshName']
+  # tendonStamp: date stamp of the tendon, used to identify the specific sample
+  tendonStamp = args_dict['tendonStamp']
+  # combination: combination of basis functions
+  combination = args_dict['combination']
+  # lossFactor: factor to scale the loss function, used to adjust the weight of the loss function
+  lossFactor = args_dict['lossFactor']
+  
+  # frozen_index: indices you are not allowed to drop (always keep these terms)
+  frozen_index=[]
+  # max_eliminate_step: maximum number of elimination allowed
+  max_eliminate_step=num_base_orign-1
+  if 'frozen_index' in args_dict.keys():
+    frozen_index=args_dict['frozen_index']
+  if 'max_eliminate_step' in args_dict.keys():
+    max_eliminate_step=args_dict['max_eliminate_step']
+  if 'method' in args_dict.keys():
+    # method: scipy optimization method (e.g., 'L-BFGS-B', 'TNC', etc.)
+    # L-BFGS-B is a quasi-Newton method that approximates the Broyden-Fletcher-Goldfarb-Shanno (BFGS)
+    # algorithm using a limited amount of computer memory. It is particularly well-suited for 
+    # large-scale optimization problems.
+    method=args_dict['method']
+  if 'bounds' in args_dict.keys():
+    # bounds: coefficient bounds per active parameter (needed for L-BFGS-B and TNC methods)
+    bounds=args_dict['bounds']
+    
+  if 'disp' in method_options.keys():
+    if method_options['disp']==True:
+      callback=iter_cb
+  # gamma_matrix: matrix to store the coefficients of the basis functions at each step
+  # shape: (num_theta, max_eliminate_step+1)
+  gamma_matrix=np.empty((num_theta,max_eliminate_step+1))
+  gamma_matrix[:]=np.NaN
+  # the target coefficient is always 1
+  # typical in VSI to fix one coefficient to 1 to avoid trivial rescaling ambiguity
+  gamma_matrix[target_index,:]=1
+  
+  # if save_to_file is provided, open the file for appending results
+  if save_to_file!=None:
+    f=open(save_to_file,'ab')
+  
+  # loss: array to store the loss function value at each step
+  loss=np.zeros(max_eliminate_step+1)
+
+  # Step 0: optimize using the full initial set of active basis functions
+  # Calls obj_f to compute the loss function. *I THINK* this add_up_losses nonlinear_VSI_HGO.py 
+  # scipy minimize function calls obj_f with x0 and the args tuple below
+  res=sp.minimize(obj_f, x0,jac=grad_f, method=method, 
+                  args=(tendonStamp, meshName, lossFactor, combination,
+                        current_activate_index,target_index),
+                        bounds=bounds, options=method_options,callback=callback )
+
+  # x0 = res.x, replaces x0 with optimized coefficients from the first minimization
+  x0=res.x
+  # store them in gamma_matrix
+  gamma_matrix[current_activate_index,0]=x0
+  #store the loss value
+  loss[0]=res.fun
+  print('==============================================================')
+  print('step=',0, ' current_activate_index=',current_activate_index,
+        ' x0=',gamma_matrix[:,0],' loss=',loss[0] )
+  # write one row containg all num_theta coefficients and the loss value to file
+  # fsync ensures data is written to disk
+  if save_to_file!=None:
+    info=np.reshape(np.append(gamma_matrix[:,0],(loss[0])),(1,-1))
+    np.savetxt(f,info)
+    f.flush()
+    os.fsync(f.fileno())
+  # stepwise elimination loop
+  for step in range(len(current_activate_index)-1):
+    # break if reached max_eliminate_step
+    if step==max_eliminate_step:
+      break
+    num_activate_index=len(current_activate_index)
+    # gamma_matrix_tem: stores the optimized coefficients for each "drop candidate"
+    # Row = coefficients after dropping one term
+    # Columns = which term was dropped
+    # loss_tem is initialized to a large number. If loss_tem started at zeros, then 
+    # frozen terms owudl incorrectly look like "perfect drops" (loss 0), and argmin 
+    # would pick them up.So, initialize to a large number so that if an indez is frozen, 
+    # its loss_tem value stays enormous, and argmin(loss_tem)will never choose it as the 
+    # best drop term
+    gamma_matrix_tem=np.zeros((num_activate_index-1,num_activate_index))
+    loss_tem=np.ones(num_activate_index)*1.0e20 # why*1e20?
+
+
+    for j in range(len(current_activate_index)):
+      # loop over each active basis term index
+      try_index=current_activate_index[j]
+      # continue if j is in the frozen_index
+      if try_index in frozen_index:
+        continue
+      
+      # create temporary variables with the j-th active term removed
+      current_activate_index_tem=np.delete(current_activate_index,j)
+      x0_tem=np.delete(x0,j)
+      bounds_tem=None
+      # if bounds are provided, remove the j-th row
+      if 'bounds' in args_dict.keys():
+        bounds_tem=np.delete(bounds,j,0)
+
+      # again minimize the objective function with the j-th term removed
+      res=sp.minimize(obj_f, x0_tem,jac=grad_f,  method=method, 
+                      args=(tendonStamp, meshName, lossFactor, combination,
+                            current_activate_index_tem,target_index),
+                      bounds=bounds_tem, 
+                      options=method_options,callback=callback)
+      #store the optimized coefficients and loss value
+      #loss_tem[j] is the "best loss" achieved by dropping the j-th term
+      gamma_matrix_tem[:,j]=res.x
+      loss_tem[j]=res.fun
+    
+    # Choose the term to drop that gives the minimum loss. 
+    # Best drop = argmin(loss_tem) (i.e. inputs that minimize the loss)
+    drop_index=np.argmin(loss_tem) 
+    print('loss_try=',loss_tem)
+    loss_try=loss_tem[drop_index]
+    # Compute the "F" elimination criterion.
+    # (loss_try - current_loss) / current_loss = relative increase in loss after dropping one term
+    # multiplied by (num_base_orign - num_activate_index + 1) which grows as you eliminate more terms.
+    # This resembles a crude, scaled "F-test /parsimony criterion" Early eliminations are allowed more easily.
+    # Later elimination are penalized more heavily.
+    F=(loss_try-loss[step])/loss[step]*(num_base_orign-num_activate_index+1)
+    
+    # Decide whether to accept the drop based on the F criterion and F_threshold
+    # If F<F_threshold, then accept the drop and remove the term from equation
+    if F<F_threshold:
+      current_activate_index=np.delete(current_activate_index,drop_index)
+      # update x0 by removing the dropped term
+      x0=np.delete(x0,drop_index)
+      if 'bounds' in args_dict.keys():
+        bounds=np.delete(bounds,drop_index,0)
+      # update gamma_matrix and loss with the accepted drop
+      gamma_matrix[current_activate_index,step+1]=gamma_matrix_tem[:,drop_index]
+      loss[step+1]=loss_try
+      
+    else:
+      # If F>F_threshold, then do not accept the drop and terminate the elimination process
+      break
+    
+    # save intermediate results to file if requested
+    if save_to_file!=None:
+      info=np.reshape(np.append(gamma_matrix[:,step+1],(loss[step+1])),(1,-1))
+      np.savetxt(f,info)
+      f.flush()
+      os.fsync(f.fileno())
+    print('==============================================================')
+    print('step=',step+1, ' current_activate_index=',current_activate_index,' x0=',gamma_matrix[:,step+1],' loss=',loss[step+1] )
+  
+  # return the final gamma_matrix and loss arrays
+  return gamma_matrix, loss
+
+"""
+Gamme_matrix: coefficient values of basis functions at each elimination step
+Loss: objective function values at each elimination step
+
+How does this build on boundaryConditions.py?
+The stepwise_minimization_HGOConverged function does not directly build on boundaryConditions.py.
+
+The dependency is one layer down in nonlinear_VSI_HGO_ConvergedMesh_CG2.py where both the 
+boundaryConditions.py and stepwise_minimization_HGOConverged.py files are imported and used.
+
+obj_f is constructed such that it loads the mesh and the measured displacement data,
+marks boundary facets using the lambda functions defined in boundaryConditions.py,
+applie dirichlet/neumann boundary condtions, computes the loss against the measured displacement 
+and/or traction data, returns that loss to SciPy's minimize function called in stepwise_minimization_HGOConverged.py.
+
+Conceptually,
+boundaryConditions.py defines how to label geometry facets for given tendon conditions (intact or torn),
+obj_f uses those labels to set up the forward/adjoint solve and evaluate the loss,
+and stepwise_minimization_HGOConverged.py uses obj_f to perform the stepwise minimization.
+This is done by changing the active basis terms , reoptimizing the coefficients,
+and selecting which basis terms to keep or drop based on the change in loss.
+
+So: BoundaryConditions --> forward/adjoint solve & loss (obj_f) --> stepwise minimization of loss
+"""
