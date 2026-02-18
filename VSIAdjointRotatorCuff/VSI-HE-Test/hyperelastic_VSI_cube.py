@@ -210,11 +210,12 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
   
   tem=tem[:]
 
-  # Physical residual loss, squared Euclidean nrom of assembled residual vector
-  # Normalized by number of entries and by measured external force squared
+  # Weak Form Residual
+  # Measures how well the displacement field satisfies the equilibrium equations for the current material parameters.
   loss1 = np.inner(tem,tem)/(np.size(tem)*F_meas**2)
 
   # Force-matching penalty term, compares computed boundary resultant to measured force
+  # Ensures the boundary traction predicted by the model matches the measured reaction force.
   loss2 = (F_pred - F_meas)**2/(F_meas**2)
 
   loss_factor1 = 1.
