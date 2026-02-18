@@ -23,7 +23,8 @@ for i in range(num_theta):
   theta.append(Constant(0.0))
 
 
-def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activate_basis_index):
+def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top,
+                          loss_factor2, activate_basis_index, bc_mode):
   #################################### Define mesh ############################
   """
   nonlinear_VSI_HGO is a function that performs a nonlinear optimization of a VSI constitutive model using the HGO optimization algorithm.
@@ -62,6 +63,7 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
   or stepwise regression routine during constitutive model identification.
   """
   
+  debug = False
   # Creates empty mesh object
   mesh=Mesh()
   # Reads XDMF mesh from path
@@ -88,9 +90,9 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
 
   # Dictionary of boundary conditions for tendon
 
-  equationDict = Cube5mm["equations"]["Compression"].items()
-  keyList = list(Cube5mm["equations"]["Compression"].keys())
-  
+  equationDict = Cube5mm["equations"][bc_mode].items()
+  keyList = list(Cube5mm["equations"][bc_mode].keys())
+
   # iterates through facets and applies boundary conditions
   for f in facets(mesh):
     for key, equation in equationDict:
@@ -109,8 +111,6 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
   #   infile.read_checkpoint(u, "U", 0) 
 
   # Load u from Abaqus CSV using INP node coordinates
-  inp_path = "TestVSI-Tets.inp"
-  u_csv_path = "cube_U.csv"
   u = load_u_into_function_from_inp_csv(mesh, V, inp_path, u_csv_path, tol=1e-6)
 
   #Creates a test function for variational forms
@@ -176,14 +176,13 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
   traction = dot(sigma, n)
   load_dir = Constant((0.0, 1.0, 0.0))
   F_pred = assemble(dot(traction, load_dir)*ds_top)
-  print("Predicted force = ", F_pred)
-  if MPI.rank(MPI.comm_world) == 0:
-    print("theta =", float(theta[0]), float(theta[1]), "F_pred =", float(F_pred), "F_meas =", float(rf2_top))
+  # print("Predicted force = ", F_pred)
+  # print("theta =", float(theta[0]), float(theta[1]), "F_pred =", float(F_pred), "F_meas =", float(rf2_top))
   F_meas = rf2_top
-  print("Measured force = ", F_meas)
+  # print("Measured force = ", F_meas)
 
   A_top = assemble(1.0*ds_top)
-  print("A_top =", A_top)
+  # print("A_top =", A_top)
 
 
   # Assign displacement 
@@ -195,9 +194,19 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
 
   # Apply boundary conditions
 
-  for key in ["BottomFace", "TopFace"]:
-    bc = DirichletBC(V, u, facetfct, keyList.index(key) + 1)
-    bc.apply(tem)
+  # for key in ["BottomFace", "TopFace"]:
+  #   bc = DirichletBC(V, u, facetfct, keyList.index(key) + 1)
+  #   bc.apply(tem)
+
+  bc_keys = ["BottomFace", "TopFace"]
+  for extra in ["XMin", "XMax", "ZMin", "ZMax"]:
+      if extra in keyList:
+          bc_keys.append(extra)
+
+  for key in bc_keys:
+      bc = DirichletBC(V, u, facetfct, keyList.index(key) + 1)
+      bc.apply(tem)
+
   
   tem=tem[:]
 
@@ -209,8 +218,17 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
   loss2 = (F_pred - F_meas)**2/(F_meas**2)
 
   loss_factor1 = 1.
-  print("loss1 = ", loss_factor1*loss1)
-  print("loss2 = ", loss_factor2*loss2)
+  # print("loss1 = ", loss_factor1*loss1)
+  # print("loss2 = ", loss_factor2*loss2)
+
+  if debug and MPI.rank(MPI.comm_world) == 0:
+    print("theta =", float(theta[0]), float(theta[1]))
+    print("F_pred =", float(F_pred))
+    print("F_meas =", float(F_meas))
+    print("A_top =", float(A_top))
+    print("loss1 =", float(loss1))
+    print("loss2 =", float(loss2))
+
 
   lam=0. # penalty term
   a = [0]*len(theta)
@@ -292,6 +310,21 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, rf2_top, loss_factor2, activa
 #   return losses
   
 import numpy as np
+
+def objective_two_cases(target_array, cases, mesh_xdmf, loss_factor2, activate_basis_index):
+    total = 0.0
+    for case in cases:
+        total += nonlinear_VSI_LE_cube(
+            target_array,
+            mesh_xdmf,
+            case["inp_path"],
+            case["u_csv"],
+            case["rf2_top"],
+            loss_factor2,
+            activate_basis_index,
+            case["bc_mode"],
+        )
+    return total
 
 def read_inp_nodes(inp_path):
     """Return dict: nodeLabel -> (x,y,z) from Abaqus .inp *NODE section."""
@@ -387,6 +420,15 @@ def load_u_into_function_from_inp_csv(mesh, V, inp_path, u_csv_path, tol=1e-9):
     u.vector().apply("insert")
     return u
 
+def read_rf2_top(path):
+        with open(path, "r") as f:
+            for line in f:
+                if "RF2_top" in line:
+                    # Handles both "RF2_top = -25" and "RF2_top,-25"
+                    parts = line.replace("=", ",").split(",")
+                    return float(parts[-1])
+        raise RuntimeError("RF2_top not found in file")
+
 ###################### Here's where the code execution starts ####################
 """
 IN THIS CASE:
@@ -417,36 +459,40 @@ if __name__ == "__main__":
   activate_basis_index=[0,1]
   coeffs0 = np.array([1., 1.])
   mesh_xdmf = "cube_with_U.xdmf"
-  rf_file = "cube_RF2.txt"
-
-  def read_rf2_top(path):
-        with open(path, "r") as f:
-            for line in f:
-                if "RF2_top" in line:
-                    # Handles both "RF2_top = -25" and "RF2_top,-25"
-                    parts = line.replace("=", ",").split(",")
-                    return float(parts[-1])
-        raise RuntimeError("RF2_top not found in file")
-  
-  rf2_top = read_rf2_top(rf_file)
-  print("Measured RF2_top = ", rf2_top)
+  rf2_case1 = read_rf2_top("cube_RF2_case1.txt")
+  rf2_case2 = read_rf2_top("cube_RF2_case2.txt")
 
   loss_factor2 = 1e-3
-  # for index in indexList:
-  #   print("Tendon ", tendonStampList[index])
-  #   loss0 = add_up_losses(coeffs0, "Tendon" + tendonStampList[index], meshName, loss_factor2, 
-  #                         combinationList, activate_basis_index, target_index)
-  #   print("Loss0 = ", loss0)
-    
+  cases = [
+    {
+        "name": "case1",
+        "bc_mode": "Case1_Unconfined",   # must match your updated boundaryConditions.py
+        "inp_path": "TestVSI-Tets.inp",
+        "u_csv": "cube_U_case1.csv",
+        "rf2_top": rf2_case1,
+    },
+    {
+        "name": "case2",
+        "bc_mode": "Case2_Confined",     # must match your updated boundaryConditions.py
+        "inp_path": "TestVSI-Tets2.inp",
+        "u_csv": "cube_U_case2.csv",
+        "rf2_top": rf2_case2,
+    },
+]
+  
   # Creates bounds, default lower bound 0, upper bound infinity
   bounds = np.zeros((coeffs0.size,2))
   bounds[:,0] = 0.#1e-5	#All terms positive
   bounds[:,1] = np.inf
-  args=(mesh_xdmf, rf2_top, loss_factor2, activate_basis_index)
-  print("loss at initial guess:", nonlinear_VSI_LE_cube(coeffs0, mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
-  print("F_pred at [1,1] =", nonlinear_VSI_LE_cube(np.array([1.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
-  print("F_pred at [2,1] =", nonlinear_VSI_LE_cube(np.array([2.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
-  print("F_pred at [1,2] =", nonlinear_VSI_LE_cube(np.array([1.0,2.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  args = (cases, mesh_xdmf, loss_factor2, activate_basis_index)
+
+  print("loss at initial guess (two cases):",
+      objective_two_cases(coeffs0, *args))
+  
+  # print("loss at initial guess:", nonlinear_VSI_LE_cube(coeffs0, mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("F_pred at [1,1] =", nonlinear_VSI_LE_cube(np.array([1.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("F_pred at [2,1] =", nonlinear_VSI_LE_cube(np.array([2.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("F_pred at [1,2] =", nonlinear_VSI_LE_cube(np.array([1.0,2.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
 
   
   # folder_name = tendonStampList[index] + '/results/HGOHighOrderI1I2_SquaredNorm'
@@ -465,12 +511,12 @@ if __name__ == "__main__":
   print("Running optimization...")
   
   result = minimize(
-     nonlinear_VSI_LE_cube,
-     coeffs0,
-     args = args,
-     method = 'SLSQP',
-     bounds = bounds,
-     options = method_options
+    objective_two_cases,
+    coeffs0,
+    args=args,
+    method="SLSQP",
+    bounds=bounds,
+    options=method_options,
   )
   
   print("\n===== Optimization Complete =====")

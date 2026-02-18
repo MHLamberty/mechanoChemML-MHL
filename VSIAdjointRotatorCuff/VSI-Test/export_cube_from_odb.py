@@ -5,14 +5,16 @@ import os
 
 print("CWB =", os.getcwd())
 
-odb_name = "TestVSI-Tets.odb"       # change if needed
+case_tag = "case2" # for labeling outputs if needed
+odb_name = "TestVSI-Tets2.odb"       # change if needed
 step_name = "Compression"
 set_top = "TOPFACE"
 set_bot = "BOTTOMFACE"
 set_c1  = "CORNER1"
-set_c2  = "CORNER2"             # note: in the inp it's written as "Corner 2"
+set_c2  = "CORNER2"             # note: in the inp it's written as "Corner2"
 part_instance = "CUBE-1"         # instance name in assembly (often PARTNAME-1)
-out_path = os.path.abspath("cube_RF2.txt")
+out_path = os.path.abspath("cube_RF2_case2.txt")
+               
 print("Writing RF to:", out_path)
 
 odb = openOdb(odb_name)
@@ -33,7 +35,7 @@ for v in U.values:
         u_by_label[v.nodeLabel] = v.data  # (U1,U2,U3)
 
 # Write nodal displacements for the whole mesh (sorted by node label)
-with open("cube_U.csv", "w") as f:
+with open("cube_U_case2.csv", "w") as f:
     f.write("nodeLabel,U1,U2,U3\n")
     for n in sorted([nd.label for nd in nodes]):
         u = u_by_label.get(n, (0.0, 0.0, 0.0))
@@ -66,4 +68,4 @@ f.close()
 
 odb.close()
 
-print("Wrote cube_U.csv and cube_RF2.txt")
+print("Wrote cube_U_case2.csv and cube_RF2_case2.txt")

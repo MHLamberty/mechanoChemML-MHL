@@ -107,8 +107,8 @@ def attach_displacements(mesh: meshio.Mesh, inp_nodes: dict, u_by_label: dict, t
 def main():
     base = Path(".")
     inp_file = base / "VSI-Test" / "TestVSI-Tets.inp"
-    u_csv = base / "VSI-Test" / "cube_U.csv"
-    xdmf_file = base / "VSI-Test" / "cube_with_U.xdmf"
+    u_csv = base / "VSI-Test" / "cube_U_case1.csv"
+    xdmf_file = base / "VSI-Test" / "cube_with_U_case1.xdmf"
 
     print(f"Reading mesh: {inp_file}")
     mesh = meshio.read(inp_file)

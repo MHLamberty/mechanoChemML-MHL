@@ -2,9 +2,17 @@ from dolfin import near
 
 Cube5mm = {
   "equations": {
-    "Compression": {
+    "Case1_Unconfined": {
       "BottomFace": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, 1e-6),
       "TopFace":    lambda f: f.exterior() and near(f.midpoint()[1], 5.0, 1e-6),
+    },
+    "Case2_Confined": {
+      "BottomFace": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, 1e-6),
+      "TopFace":    lambda f: f.exterior() and near(f.midpoint()[1], 5.0, 1e-6),
+      "XMin":       lambda f: f.exterior() and near(f.midpoint()[0], 0.0, 1e-6),
+      "XMax":       lambda f: f.exterior() and near(f.midpoint()[0], 5.0, 1e-6),
+      "ZMin":       lambda f: f.exterior() and near(f.midpoint()[2], 0.0, 1e-6),
+      "ZMax":       lambda f: f.exterior() and near(f.midpoint()[2], 5.0, 1e-6),
     }
   }
 }
