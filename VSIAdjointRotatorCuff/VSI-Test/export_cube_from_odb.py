@@ -1,14 +1,19 @@
 # export_cube_from_odb.py
 from odbAccess import openOdb
 import numpy as np
+import os
 
-odb_name = "TestVSI-1.odb"       # change if needed
+print("CWB =", os.getcwd())
+
+odb_name = "TestVSI-Tets.odb"       # change if needed
 step_name = "Compression"
 set_top = "TOPFACE"
 set_bot = "BOTTOMFACE"
 set_c1  = "CORNER1"
-set_c2  = "CORNER 2"             # note: in the inp it's written as "Corner 2"
+set_c2  = "CORNER2"             # note: in the inp it's written as "Corner 2"
 part_instance = "CUBE-1"         # instance name in assembly (often PARTNAME-1)
+out_path = os.path.abspath("cube_RF2.txt")
+print("Writing RF to:", out_path)
 
 odb = openOdb(odb_name)
 step = odb.steps[step_name]
@@ -53,9 +58,12 @@ def sum_rf2_on_nodeset(nodeset_name):
 rf2_top = sum_rf2_on_nodeset(set_top)
 rf2_bot = sum_rf2_on_nodeset(set_bot)
 
-with open("cube_RF2.txt", "w") as f:
-    print("RF2_top = {}".format(rf2_top))
-    print("RF2_bot = {}".format(rf2_bot))
+f = open(out_path, "w")
+f.write("RF2_top = {}\n".format(rf2_top))
+f.write("RF2_bot = {}\n".format(rf2_bot))
+f.flush()
+f.close()
 
 odb.close()
+
 print("Wrote cube_U.csv and cube_RF2.txt")
