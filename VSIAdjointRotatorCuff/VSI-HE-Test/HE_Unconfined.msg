@@ -1,0 +1,1128 @@
+1
+
+   Abaqus 2022                                  Date 23-Feb-2026   Time 11:01:25
+   For use by UNIVERSITY OF MICHIGAN under license from Dassault Systemes or its subsidiary.
+
+                                                                                 
+                                                                                 
+ STEP    1     INCREMENT     1     STEP TIME    0.00    
+
+
+                        S T E P       1     S T A T I C   A N A L Y S I S
+
+
+                                                                                          
+
+     AUTOMATIC TIME CONTROL WITH -
+          A SUGGESTED INITIAL TIME INCREMENT OF                1.000E-02
+          AND A TOTAL TIME PERIOD OF                            1.00    
+          THE MINIMUM TIME INCREMENT ALLOWED IS                1.000E-09
+          THE MAXIMUM TIME INCREMENT ALLOWED IS                0.100    
+
+     LINEAR EQUATION SOLVER TYPE         DIRECT SPARSE
+
+ CONVERGENCE TOLERANCE PARAMETERS FOR FORCE    
+     CRITERION FOR RESIDUAL FORCE     FOR A NONLINEAR PROBLEM          5.000E-03
+     CRITERION FOR DISP.    CORRECTION IN A NONLINEAR PROBLEM          1.000E-02
+     INITIAL VALUE OF TIME AVERAGE FORCE                               1.000E-02
+     AVERAGE FORCE     IS TIME AVERAGE FORCE    
+     ALTERNATE CRIT. FOR RESIDUAL FORCE     FOR A NONLINEAR PROBLEM    2.000E-02
+     CRITERION FOR ZERO FORCE     RELATIVE TO TIME AVRG. FORCE         1.000E-05
+     CRITERION FOR RESIDUAL FORCE     WHEN THERE IS ZERO FLUX          1.000E-05
+     CRITERION FOR DISP.    CORRECTION WHEN THERE IS ZERO FLUX         1.000E-03
+     CRITERION FOR RESIDUAL FORCE     FOR A LINEAR INCREMENT           1.000E-08
+     FIELD CONVERSION RATIO                                             1.00    
+     CRITERION FOR ZERO FORCE     REL. TO TIME AVRG. MAX. FORCE        1.000E-05
+     CRITERION FOR ZERO DISP.    RELATIVE TO CHARACTERISTIC LENGTH     1.000E-08
+
+ CONVERGENCE TOLERANCE PARAMETERS FOR PR. FLUX 
+     CRITERION FOR RESIDUAL PR. FLUX  FOR A NONLINEAR PROBLEM          5.000E-03
+     CRITERION FOR VOL. LM. CORRECTION IN A NONLINEAR PROBLEM          1.000E-02
+     INITIAL VALUE OF TIME AVERAGE PR. FLUX                            1.000E-02
+     AVERAGE PR. FLUX  IS TIME AVERAGE PR. FLUX 
+     ALTERNATE CRIT. FOR RESIDUAL PR. FLUX  FOR A NONLINEAR PROBLEM    2.000E-02
+     CRITERION FOR ZERO PR. FLUX  RELATIVE TO TIME AVRG. PR. FLUX      1.000E-05
+     CRITERION FOR RESIDUAL PR. FLUX  WHEN THERE IS ZERO FLUX          1.000E-05
+     CRITERION FOR VOL. LM. CORRECTION WHEN THERE IS ZERO FLUX         1.000E-03
+     CRITERION FOR RESIDUAL PR. FLUX  FOR A LINEAR INCREMENT           1.000E-08
+     FIELD CONVERSION RATIO                                             1.00    
+     CRITERION FOR ZERO PR. FLUX  REL. TO TIME AVRG. MAX. PR. FLUX     1.000E-05
+
+     VOLUMETRIC STRAIN COMPATIBILITY TOLERANCE FOR HYBRID SOLIDS       1.000E-05
+     AXIAL STRAIN COMPATIBILITY TOLERANCE FOR HYBRID BEAMS             1.000E-05
+     TRANS. SHEAR STRAIN COMPATIBILITY TOLERANCE FOR HYBRID BEAMS      1.000E-05
+     SOFT CONTACT CONSTRAINT COMPATIBILITY TOLERANCE FOR P>P0          5.000E-03
+     SOFT CONTACT CONSTRAINT COMPATIBILITY TOLERANCE FOR P=0.0         0.100    
+     CONTACT FORCE ERROR TOLERANCE FOR CONVERT SDI=YES                 1.00    
+     DISPLACEMENT COMPATIBILITY TOLERANCE FOR DCOUP ELEMENTS           1.000E-05
+     ROTATION COMPATIBILITY TOLERANCE FOR DCOUP ELEMENTS               1.000E-05
+
+ EQUILIBRIUM WILL BE CHECKED FOR SEVERE DISCONTINUITY ITERATIONS
+
+ TIME INCREMENTATION CONTROL PARAMETERS:
+     FIRST EQUILIBRIUM ITERATION FOR CONSECUTIVE DIVERGENCE CHECK              4
+     EQUILIBRIUM ITERATION AT WHICH LOG. CONVERGENCE RATE CHECK BEGINS         8
+     EQUILIBRIUM ITERATION AFTER WHICH ALTERNATE RESIDUAL IS USED              9
+     MAXIMUM EQUILIBRIUM ITERATIONS ALLOWED                                   16
+     EQUILIBRIUM ITERATION COUNT FOR CUT-BACK IN NEXT INCREMENT               10
+     MAXIMUM EQUILIB. ITERS IN TWO INCREMENTS FOR TIME INCREMENT INCREASE      4
+     MAXIMUM ITERATIONS FOR SEVERE DISCONTINUITIES                            50
+     MAXIMUM ATTEMPTS ALLOWED IN AN INCREMENT                                  5
+     MAXIMUM DISCON. ITERS IN TWO INCREMENTS FOR TIME INCREMENT INCREASE      50
+     MAXIMUM CONTACT AUGMENTATIONS FOR *SURFACE BEHAVIOR,AUGMENTED LAGRANGE   50
+     CUT-BACK FACTOR AFTER DIVERGENCE                                 0.2500    
+     CUT-BACK FACTOR FOR TOO SLOW CONVERGENCE                         0.5000    
+     CUT-BACK FACTOR AFTER TOO MANY EQUILIBRIUM ITERATIONS            0.7500    
+     CUT-BACK FACTOR AFTER TOO MANY SEVERE DISCONTINUITY ITERATIONS   0.2500    
+     CUT-BACK FACTOR AFTER PROBLEMS IN ELEMENT ASSEMBLY               0.2500    
+     INCREASE FACTOR AFTER TWO INCREMENTS THAT CONVERGE QUICKLY        1.500    
+     MAX. TIME INCREMENT INCREASE FACTOR ALLOWED                       1.500    
+     MAX. TIME INCREMENT INCREASE FACTOR ALLOWED (DYNAMICS)            1.250    
+     MAX. TIME INCREMENT INCREASE FACTOR ALLOWED (DIFFUSION)           2.000    
+     MINIMUM TIME INCREMENT RATIO FOR EXTRAPOLATION TO OCCUR          0.1000    
+     MAX. RATIO OF TIME INCREMENT TO STABILITY LIMIT                   1.000    
+     FRACTION OF STABILITY LIMIT FOR NEW TIME INCREMENT               0.9500    
+     TIME INCREMENT INCREASE FACTOR BEFORE A TIME POINT                1.000    
+     GLOBAL STABILIZATION CONTROL IS NOT USED
+
+          PRINT OF INCREMENT NUMBER, TIME, ETC., EVERY    1  INCREMENTS
+
+     THE MAXIMUM NUMBER OF INCREMENTS IN THIS STEP IS                   10000
+
+          LARGE DISPLACEMENT THEORY WILL BE USED
+
+     LINEAR EXTRAPOLATION WILL BE USED
+
+     CHARACTERISTIC ELEMENT LENGTH     0.758    
+
+     DETAILS REGARDING ACTUAL SOLUTION WAVEFRONT REQUESTED
+
+     DETAILED OUTPUT OF DIAGNOSTICS TO DATABASE REQUESTED
+
+     PRINT OF INCREMENT NUMBER, TIME, ETC., TO THE MESSAGE FILE EVERY     1  INCREMENTS
+
+     COLLECTING MODEL CONSTRAINT INFORMATION FOR OVERCONSTRAINT CHECKS
+
+     COLLECTING STEP CONSTRAINT INFORMATION FOR OVERCONSTRAINT CHECKS
+
+
+  INCREMENT     1 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  1.000E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      1.280E-05   TIME AVG. FORCE       1.280E-05
+ LARGEST RESIDUAL FORCE             4.912E-08   AT NODE        426   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.        -5.000E-03   AT NODE          5   DOF  2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.       -5.000E-03   AT NODE          5   DOF  2
+   INSTANCE: CUBE-1                                                                          
+          DISP.    CORRECTION TOO LARGE COMPARED TO DISP.    INCREMENT
+
+ AVERAGE PR. FLUX                   4.598E-07   TIME AVG. PR. FLUX    4.598E-07
+ LARGEST RESIDUAL PR. FLUX          2.670E-05   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.997E-06   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -2.997E-06   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          PR. FLUX  EQUILIBRIUM NOT ACHIEVED WITHIN TOLERANCE.
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     2
+
+
+ AVERAGE FORCE                      1.280E-05   TIME AVG. FORCE       1.280E-05
+ LARGEST RESIDUAL FORCE            -1.232E-14   AT NODE        424   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.        -5.000E-03   AT NODE          5   DOF  2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        2.505E-06   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   1.404E-13   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -6.688E-12   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.997E-06   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     4.843E-10   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+
+ ITERATION SUMMARY FOR THE INCREMENT:   2 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  2 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  1.000E-02,  FRACTION OF STEP COMPLETED  1.000E-02
+ STEP TIME COMPLETED       1.000E-02,  TOTAL TIME COMPLETED        1.000E-02
+
+
+  INCREMENT     2 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  1.000E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      8.524E-05   TIME AVG. FORCE       4.902E-05
+ LARGEST RESIDUAL FORCE             4.891E-14   AT NODE        265   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.        -5.000E-03   AT NODE          5   DOF  2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        5.020E-06   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM RESPONSE WAS LINEAR IN THIS INCREMENT
+
+ AVERAGE PR. FLUX                   5.617E-13   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -2.683E-11   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.996E-06   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     9.586E-10   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+          TIME INCREMENT MAY NOW INCREASE TO    1.500E-02
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  1.000E-02,  FRACTION OF STEP COMPLETED  2.000E-02
+ STEP TIME COMPLETED       2.000E-02,  TOTAL TIME COMPLETED        2.000E-02
+
+
+  INCREMENT     3 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  1.500E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =   0.0000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =   0.0000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      1.494E-04   TIME AVG. FORCE       8.247E-05
+ LARGEST RESIDUAL FORCE            -1.702E-13   AT NODE        390   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.        -7.500E-03   AT NODE          5   DOF  2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        9.445E-06   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM RESPONSE WAS LINEAR IN THIS INCREMENT
+
+ AVERAGE PR. FLUX                   1.978E-12   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -9.483E-11   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -4.492E-06   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     1.765E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+          TIME INCREMENT MAY NOW INCREASE TO    2.250E-02
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  1.500E-02,  FRACTION OF STEP COMPLETED  3.500E-02
+ STEP TIME COMPLETED       3.500E-02,  TOTAL TIME COMPLETED        3.500E-02
+
+
+  INCREMENT     4 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  2.250E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      2.458E-04   TIME AVG. FORCE       1.233E-04
+ LARGEST RESIDUAL FORCE            -8.496E-13   AT NODE        421   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         1.127E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        2.135E-05   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM RESPONSE WAS LINEAR IN THIS INCREMENT
+
+ AVERAGE PR. FLUX                   1.003E-11   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -4.835E-10   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -6.734E-06   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     3.877E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+          TIME INCREMENT MAY NOW INCREASE TO    3.375E-02
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  2.250E-02,  FRACTION OF STEP COMPLETED  5.750E-02
+ STEP TIME COMPLETED       5.750E-02,  TOTAL TIME COMPLETED        5.750E-02
+
+
+  INCREMENT     5 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  3.375E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      3.913E-04   TIME AVG. FORCE       1.769E-04
+ LARGEST RESIDUAL FORCE            -4.210E-12   AT NODE        421   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         1.695E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        4.838E-05   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   5.092E-11   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -2.475E-09   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -1.009E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     8.407E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+          TIME INCREMENT MAY NOW INCREASE TO    5.063E-02
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  3.375E-02,  FRACTION OF STEP COMPLETED  9.125E-02
+ STEP TIME COMPLETED       9.125E-02,  TOTAL TIME COMPLETED        9.125E-02
+
+
+  INCREMENT     6 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  5.063E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      6.110E-04   TIME AVG. FORCE       2.493E-04
+ LARGEST RESIDUAL FORCE            -2.061E-11   AT NODE        421   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         2.554E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        1.100E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   2.590E-10   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -1.273E-08   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -1.512E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     1.787E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+          TIME INCREMENT MAY NOW INCREASE TO    7.594E-02
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  5.063E-02,  FRACTION OF STEP COMPLETED  0.142    
+ STEP TIME COMPLETED       0.142    ,  TOTAL TIME COMPLETED        0.142    
+
+
+  INCREMENT     7 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  7.594E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =   0.0000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =   0.0000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      9.444E-04   TIME AVG. FORCE       3.486E-04
+ LARGEST RESIDUAL FORCE            -9.884E-11   AT NODE        440   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         3.856E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        2.516E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   1.321E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -6.607E-08   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.265E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     3.680E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+          TIME INCREMENT MAY NOW INCREASE TO    0.100    
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  7.594E-02,  FRACTION OF STEP COMPLETED  0.218    
+ STEP TIME COMPLETED       0.218    ,  TOTAL TIME COMPLETED        0.218    
+
+
+  INCREMENT     8 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          1
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      1.390E-03   TIME AVG. FORCE       4.788E-04
+ LARGEST RESIDUAL FORCE            -3.050E-10   AT NODE        440   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.125E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        4.711E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   4.481E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -2.292E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.977E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     5.723E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THE PR. FLUX  IS ZERO EVERYWHERE BUT THE PR. FLUX  RESIDUAL OR
+          THE VOL. LM. CORRECTION IS NON-ZERO
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     2
+
+
+ AVERAGE FORCE                      1.391E-03   TIME AVG. FORCE       4.788E-04
+ LARGEST RESIDUAL FORCE             5.854E-15   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.125E-02   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.       -4.785E-07   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   1.398E-14   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -8.392E-13   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.977E-05   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -5.288E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+
+ ITERATION SUMMARY FOR THE INCREMENT:   2 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  2 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.318    
+ STEP TIME COMPLETED       0.318    ,  TOTAL TIME COMPLETED        0.318    
+
+
+  INCREMENT     9 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      1.845E-03   TIME AVG. FORCE       6.306E-04
+ LARGEST RESIDUAL FORCE            -3.566E-10   AT NODE        440   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.180E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        5.509E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION   -2.880E-08
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   5.923E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -3.105E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.972E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     5.658E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THE PR. FLUX  IS ZERO EVERYWHERE BUT THE PR. FLUX  RESIDUAL OR
+          THE VOL. LM. CORRECTION IS NON-ZERO
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     2
+
+
+ AVERAGE FORCE                      1.845E-03   TIME AVG. FORCE       6.306E-04
+ LARGEST RESIDUAL FORCE             7.956E-15   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.180E-02   AT NODE         89   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.       -5.612E-07   AT NODE          6   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   1.904E-14   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -1.141E-12   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.972E-05   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -6.166E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+
+ ITERATION SUMMARY FOR THE INCREMENT:   2 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  2 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.418    
+ STEP TIME COMPLETED       0.418    ,  TOTAL TIME COMPLETED        0.418    
+
+
+  INCREMENT    10 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =   0.0000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =   0.0000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      2.309E-03   TIME AVG. FORCE       7.985E-04
+ LARGEST RESIDUAL FORCE            -3.272E-10   AT NODE        342   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.236E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        5.674E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION   -3.137E-08
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   6.072E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -3.258E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.969E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     3.823E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THE PR. FLUX  IS ZERO EVERYWHERE BUT THE PR. FLUX  RESIDUAL OR
+          THE VOL. LM. CORRECTION IS NON-ZERO
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =   0.0000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =   0.0000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     2
+
+
+ AVERAGE FORCE                      2.309E-03   TIME AVG. FORCE       7.985E-04
+ LARGEST RESIDUAL FORCE             6.116E-15   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.236E-02   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.       -4.979E-07   AT NODE          6   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   1.473E-14   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -8.784E-13   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.968E-05   AT NODE         36
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -5.414E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+
+ ITERATION SUMMARY FOR THE INCREMENT:   2 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  2 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.518    
+ STEP TIME COMPLETED       0.518    ,  TOTAL TIME COMPLETED        0.518    
+
+
+  INCREMENT    11 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      2.782E-03   TIME AVG. FORCE       9.788E-04
+ LARGEST RESIDUAL FORCE            -3.849E-10   AT NODE        342   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.295E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        5.846E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION   -4.495E-08
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   6.244E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -3.422E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.967E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.     2.124E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          ALL VOL. LM. CORRECTIONS ARE ZERO
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.618    
+ STEP TIME COMPLETED       0.618    ,  TOTAL TIME COMPLETED        0.618    
+
+
+  INCREMENT    12 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      3.266E-03   TIME AVG. FORCE       1.169E-03
+ LARGEST RESIDUAL FORCE             4.476E-10   AT NODE        440   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.355E-02   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        6.016E-04   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION    6.604E-08
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   6.413E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -3.580E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.967E-05   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -5.456E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          ALL VOL. LM. CORRECTIONS ARE ZERO
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.718    
+ STEP TIME COMPLETED       0.718    ,  TOTAL TIME COMPLETED        0.718    
+
+
+  INCREMENT    13 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      3.760E-03   TIME AVG. FORCE       1.369E-03
+ LARGEST RESIDUAL FORCE             5.089E-10   AT NODE        439   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.417E-02   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        6.204E-04   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION    1.008E-07
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   6.649E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -3.771E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.968E-05   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -1.701E-08   AT NODE         19
+   INSTANCE: CUBE-1                                                                          
+          ALL VOL. LM. CORRECTIONS ARE ZERO
+
+ ITERATION SUMMARY FOR THE INCREMENT:   1 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  1 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.818    
+ STEP TIME COMPLETED       0.818    ,  TOTAL TIME COMPLETED        0.818    
+
+
+  INCREMENT    14 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  0.100    
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      4.266E-03   TIME AVG. FORCE       1.576E-03
+ LARGEST RESIDUAL FORCE             5.766E-10   AT NODE        440   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.481E-02   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        6.395E-04   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION    1.701E-07
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   6.905E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -3.962E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.972E-05   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -3.452E-08   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THE PR. FLUX  IS ZERO EVERYWHERE BUT THE PR. FLUX  RESIDUAL OR
+          THE VOL. LM. CORRECTION IS NON-ZERO
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     2
+
+
+ AVERAGE FORCE                      4.266E-03   TIME AVG. FORCE       1.576E-03
+ LARGEST RESIDUAL FORCE             8.526E-16   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         5.481E-02   AT NODE          4   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.       -2.154E-07   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   2.374E-15   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -1.407E-13   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.972E-05   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -2.072E-09   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+
+ ITERATION SUMMARY FOR THE INCREMENT:   2 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  2 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  0.100    ,  FRACTION OF STEP COMPLETED  0.918    
+ STEP TIME COMPLETED       0.918    ,  TOTAL TIME COMPLETED        0.918    
+
+
+  INCREMENT    15 STARTS. ATTEMPT NUMBER  1, TIME INCREMENT  8.219E-02
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =   0.0000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =   0.0000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     1
+
+
+ AVERAGE FORCE                      4.691E-03   TIME AVG. FORCE       1.783E-03
+ LARGEST RESIDUAL FORCE            -3.624E-10   AT NODE        342   DOF  3
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         4.554E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.        4.930E-04   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ ESTIMATE OF DISP.    CORRECTION   -1.880E-07
+ FORCE     EQUILIB. ACCEPTED BASED ON SMALL RESIDUAL AND ESTIMATED CORRECTION
+
+ AVERAGE PR. FLUX                   4.037E-09   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -2.334E-07   AT NODE        614
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.446E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -4.057E-08   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+          THE PR. FLUX  IS ZERO EVERYWHERE BUT THE PR. FLUX  RESIDUAL OR
+          THE VOL. LM. CORRECTION IS NON-ZERO
+ 
+	REGULARIZED SYMMETRIC DIRECT SPARSE SOLVER RUNNING ON
+ 	1 HOST:        1 MPI RANK  x 1 THREAD
+ 	NUMBER OF EQUATIONS:     5820
+ 	NUMBER OF RHS:           1
+ 	NUMBER OF FLOPS:         5.704e+08
+
+     CHECK POINT   START OF SOLVER    
+
+     CHECK POINT  END OF SOLVER       
+
+       ELAPSED USER TIME (SEC)      =  0.10000    
+       ELAPSED SYSTEM TIME (SEC)    =   0.0000    
+       ELAPSED TOTAL CPU TIME (SEC) =  0.10000    
+       ELAPSED WALLCLOCK TIME (SEC) =          0
+
+               CONVERGENCE CHECKS FOR EQUILIBRIUM ITERATION     2
+
+
+ AVERAGE FORCE                      4.691E-03   TIME AVG. FORCE       1.783E-03
+ LARGEST RESIDUAL FORCE             3.279E-16   AT NODE       1044   DOF  2
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF DISP.         4.554E-02   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO DISP.       -8.126E-08   AT NODE          7   DOF  1
+   INSTANCE: CUBE-1                                                                          
+          THE FORCE     EQUILIBRIUM EQUATIONS HAVE CONVERGED
+
+ AVERAGE PR. FLUX                   3.362E-16   TIME AVG. PR. FLUX    1.000E-02
+ LARGEST RESIDUAL PR. FLUX         -1.954E-14   AT NODE        622
+   INSTANCE: CUBE-1                                                                          
+ LARGEST INCREMENT OF VOL. LM.     -2.446E-05   AT NODE         89
+   INSTANCE: CUBE-1                                                                          
+ LARGEST CORRECTION TO VOL. LM.    -6.871E-10   AT NODE          2
+   INSTANCE: CUBE-1                                                                          
+          THERE IS ZERO PR. FLUX  EVERYWHERE
+ 
+
+ ***WARNING: THERE IS ZERO PR. FLUX EVERYWHERE IN THE MODEL BASED ON THE 
+             DEFAULT CRITERION. PLEASE CHECK THE VALUE OF THE AVERAGE PR. FLUX 
+             DURING THE CURRENT ITERATION TO VERIFY THAT THE PR. FLUX IS SMALL 
+             ENOUGH TO BE TREATED AS ZERO. IF NOT, PLEASE USE THE SOLUTION 
+             CONTROLS TO RESET THE CRITERION FOR ZERO PR. FLUX.
+
+ ITERATION SUMMARY FOR THE INCREMENT:   2 TOTAL ITERATIONS, OF WHICH
+   0 ARE SEVERE DISCONTINUITY ITERATIONS AND  2 ARE EQUILIBRIUM ITERATIONS.
+
+ TIME INCREMENT COMPLETED  8.219E-02,  FRACTION OF STEP COMPLETED   1.00    
+ STEP TIME COMPLETED        1.00    ,  TOTAL TIME COMPLETED         1.00    
+
+
+          THE ANALYSIS HAS BEEN COMPLETED
+
+
+
+     ANALYSIS SUMMARY:
+     TOTAL OF         15  INCREMENTS
+                       0  CUTBACKS IN AUTOMATIC INCREMENTATION
+                      21  ITERATIONS INCLUDING CONTACT ITERATIONS IF PRESENT
+                      21  PASSES THROUGH THE EQUATION SOLVER OF WHICH 
+                      21  INVOLVE MATRIX DECOMPOSITION, INCLUDING
+                       0  DECOMPOSITION(S) OF THE MASS MATRIX
+                       1  REORDERING OF EQUATIONS TO MINIMIZE WAVEFRONT
+                       0  ADDITIONAL RESIDUAL EVALUATIONS FOR LINE SEARCHES
+                       0  ADDITIONAL OPERATOR EVALUATIONS FOR LINE SEARCHES
+                       0  WARNING MESSAGES DURING USER INPUT PROCESSING
+                      12  WARNING MESSAGES DURING ANALYSIS
+                       0  ANALYSIS WARNINGS ARE NUMERICAL PROBLEM MESSAGES
+                       0  ANALYSIS WARNINGS ARE NEGATIVE EIGENVALUE MESSAGES
+                       0  ERROR MESSAGES
+
+
+
+     JOB TIME SUMMARY
+       USER TIME (SEC)      =   6.9000    
+       SYSTEM TIME (SEC)    =  0.40000    
+       TOTAL CPU TIME (SEC) =   7.3000    
+       WALLCLOCK TIME (SEC) =          8

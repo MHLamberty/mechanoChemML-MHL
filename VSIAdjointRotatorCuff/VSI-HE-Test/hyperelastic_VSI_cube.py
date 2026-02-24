@@ -23,8 +23,8 @@ for i in range(num_theta):
   theta.append(Constant(0.0))
 
 
-def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top,
-                          loss_factor2, activate_basis_index, bc_mode):
+def hyperelastic_VSI(target_array, mesh_xdmf, inp_path, u_csv_path, rf_meas,
+                          loss_factor2, activate_basis_index, bc_mode, meas_face, load_dir):
   #################################### Define mesh ############################
   """
   nonlinear_VSI_HGO is a function that performs a nonlinear optimization of a VSI constitutive model using the HGO optimization algorithm.
@@ -33,7 +33,7 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
     target_array: an array of the current target values for the constitutive parameters
     mesh_xdmf: the path to the XDMF mesh file
     u_csv: the path to the CSV file containing displacement data
-    rf2_top: the top boundary region for traction forces
+    rf_meas: the measured traction force on the specified face
     loss_factor2: the weight of the loss term for the external force
     meshName: the name of the mesh
     current_activate_index: an array of the indices of the currently active constitutive parameters
@@ -134,6 +134,11 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
   # d=len(u)
   d = mesh.geometry().dim()
   I = Identity(d)          # Identity tensor
+  F = I + grad(u)          # Deformation gradient
+  C = F.T*F                # Right Cauchy-Green tensor
+  J = det(F)               # Jacobian
+  I1 = tr(C)               # First invariant
+  I1bar = J**(-2.0/3.0) * I1
 
   def eps(w):
       return sym(grad(w))
@@ -144,9 +149,9 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
   sigma = lam*tr(eps(u))*I + 2*mu*eps(u) # linear elastic stress for testing
 
   # Bounndary integration measure on the "tendon" boundary, integrate traction and compute predicted force
-  ds_top = Measure("ds", domain=mesh, subdomain_data=facetfct,
-                 subdomain_id=keyList.index("TopFace")+1,
-                 metadata={'quadrature_degree': q_degree})
+  ds_ymax = Measure("ds", domain=mesh, subdomain_data=facetfct,
+                  subdomain_id=keyList.index("YMAX") + 1,
+                  metadata={'quadrature_degree': q_degree})
 
   ################## Candidate functions for strain energy density ###########################
 
@@ -173,15 +178,22 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
   # theta[target_index].assign(1.0)
   
   n= FacetNormal(mesh)
+  ds_meas = Measure("ds", domain=mesh, subdomain_data=facetfct,
+                  subdomain_id=keyList.index(meas_face) + 1,
+                  metadata={'quadrature_degree': q_degree})
   traction = dot(sigma, n)
-  load_dir = Constant((0.0, 1.0, 0.0))
-  F_pred = assemble(dot(traction, load_dir)*ds_top)
+  load_dir_const = Constant(load_dir)
+  F_pred = assemble(dot(traction, load_dir_const) * ds_meas)
+  F_meas = rf_meas
+  # traction = dot(sigma, n)
+  # load_dir = Constant((0.0, 1.0, 0.0))
+  # F_pred = assemble(dot(traction, load_dir)*ds_ymax)
   # print("Predicted force = ", F_pred)
   # print("theta =", float(theta[0]), float(theta[1]), "F_pred =", float(F_pred), "F_meas =", float(rf2_top))
-  F_meas = rf2_top
+  # F_meas = rf2_top
   # print("Measured force = ", F_meas)
 
-  A_top = assemble(1.0*ds_top)
+  A_top = assemble(1.0*ds_ymax)
   # print("A_top =", A_top)
 
 
@@ -198,8 +210,8 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
   #   bc = DirichletBC(V, u, facetfct, keyList.index(key) + 1)
   #   bc.apply(tem)
 
-  bc_keys = ["BottomFace", "TopFace"]
-  for extra in ["XMin", "XMax", "ZMin", "ZMax"]:
+  bc_keys = ["YMIN", "YMAX"]
+  for extra in ["XMIN", "XMAX", "ZMIN", "ZMAX"]:
       if extra in keyList:
           bc_keys.append(extra)
 
@@ -305,25 +317,27 @@ def nonlinear_VSI_LE_cube(target_array, mesh_xdmf, inp_path, u_csv_path, rf2_top
 #   losses = 0.0
 
 #   for i in range(len(combination)):
-#       losses += nonlinear_VSI_LE_cube(target_array, tendonStamp, str(combination[i][0]), 
+#       losses += hyperelastic_VSI(target_array, tendonStamp, str(combination[i][0]), 
 #                                   str(combination[i][1]), loss_factor2, meshName, current_activate_index,
 #                                   target_index)
 #   return losses
   
 import numpy as np
 
-def objective_two_cases(target_array, cases, mesh_xdmf, loss_factor2, activate_basis_index):
+def objective_all_cases(target_array, cases, mesh_xdmf, loss_factor2, activate_basis_index):
     total = 0.0
     for case in cases:
-        total += nonlinear_VSI_LE_cube(
+        total += hyperelastic_VSI(
             target_array,
             mesh_xdmf,
             case["inp_path"],
             case["u_csv"],
-            case["rf2_top"],
+            case["rf_meas"],
             loss_factor2,
             activate_basis_index,
             case["bc_mode"],
+            case["meas_face"],
+            case["load_dir"],
         )
     return total
 
@@ -430,26 +444,14 @@ def read_rf2_top(path):
                     return float(parts[-1])
         raise RuntimeError("RF2_top not found in file")
 
+def read_rf_component(path, key):
+    with open(path, "r") as f:
+        for line in f:
+            if key in line:
+                parts = line.replace("=", ",").split(",")
+                return float(parts[-1])
+    raise RuntimeError("Key not found: " + key + " in " + path)
 ###################### Here's where the code execution starts ####################
-"""
-IN THIS CASE:
-coeffs0[0] = bulk modulus, volumetric
-coeffs0[1] = isochoric I1, stiffness
-coeffs0[2] = anisotropic exp prefactor
-coeffs0[3] = anisotropic exp sharpness
-coeffs0[4] = fiber dispersion K [0, 1/3] is a classical fiber-dispersion parameter constraint
-coeffs0[5] = (I1-3)^2
-coeffs0[6] = (I1-3)^3
-coeffs0[7] = (I1-3)^4
-coeffs0[8] = (I2-3)^2
-coeffs0[9] = (I2-3)^3
-coeffs0[10] = (I2-3)^4
-
-IN THIS CASE:
-theta 0 - 2, core physics (never eliminated)
-theta 3 - 4, anisotropic shape control
-theta 5 - 10, higher-order isotropic terms (subject to elimination)
-"""
 if __name__ == "__main__":
 
   print("===== Linear Elastic VSI on ABAQUS Cube =====")
@@ -465,21 +467,62 @@ if __name__ == "__main__":
 
   loss_factor2 = 1e-3
   cases = [
-    {
-        "name": "case1",
-        "bc_mode": "Case1_Unconfined",   # must match your updated boundaryConditions.py
-        "inp_path": "TestVSI-Tets.inp",
-        "u_csv": "cube_U_case1.csv",
-        "rf2_top": rf2_case1,
-    },
-    {
-        "name": "case2",
-        "bc_mode": "Case2_Confined",     # must match your updated boundaryConditions.py
-        "inp_path": "TestVSI-Tets2.inp",
-        "u_csv": "cube_U_case2.csv",
-        "rf2_top": rf2_case2,
-    },
-]
+        # 1) Unconfined compression: measure RF2 on YMAX
+        {
+            "name": "HE_Unconfined",
+            "bc_mode": "HE_Unconfined",
+            "inp_path": "HE_Unconfined.inp",
+            "u_csv": "cube_U_HE_Unconfined.csv",
+            "rf_meas": read_rf_component("cube_RF2_HE_Unconfined.txt", "RF2_top"),
+            "meas_face": "YMAX",
+            "load_dir": (0.0, 1.0, 0.0),
+        },
+
+        # 2) Confined compression: measure RF2 on YMAX
+        {
+            "name": "HE_Confined",
+            "bc_mode": "HE_Confined",
+            "inp_path": "HE_Confined.inp",
+            "u_csv": "cube_U_HE_Confined.csv",
+            "rf_meas": read_rf_component("cube_RF2_HE_Confined.txt", "RF2_top"),
+            "meas_face": "YMAX",
+            "load_dir": (0.0, 1.0, 0.0),
+        },
+
+        # 3) Plane strain (still loaded in Y): measure RF2 on YMAX
+        {
+            "name": "HE_PlaneStrain",
+            "bc_mode": "HE_PlaneStrain",
+            "inp_path": "HE_PlaneStrain.inp",
+            "u_csv": "cube_U_HE_PlaneStrain.csv",
+            "rf_meas": read_rf_component("cube_RF2_HE_PlaneStrain.txt", "RF2_top"),
+            "meas_face": "YMAX",
+            "load_dir": (0.0, 1.0, 0.0),
+        },
+
+        # 4) Simple shear in X: measure RF1 on YMAX
+        {
+            "name": "HE_SimpleShear",
+            "bc_mode": "HE_SimpleShear",
+            "inp_path": "HE_SimpleShear.inp",
+            "u_csv": "cube_U_HE_SimpleShear.csv",
+            "rf_meas": read_rf_component("cube_RF1_HE_SimpleShear.txt", "RF1_top"),
+            "meas_face": "YMAX",
+            "load_dir": (1.0, 0.0, 0.0),
+        },
+
+        # 5) Biaxial stretch:
+        # If you're only fitting using RF2 on YMAX, do this:
+        {
+            "name": "HE_BiaxialStretch",
+            "bc_mode": "HE_BiaxialStretch",
+            "inp_path": "HE_BiaxialStretch.inp",
+            "u_csv": "cube_U_HE_BiaxialStretch.csv",
+            "rf_meas": read_rf_component("cube_RF2_HE_BiaxialStretch.txt", "RF2_top"),
+            "meas_face": "YMAX",
+            "load_dir": (0.0, 1.0, 0.0),
+        },
+    ]
   
   # Creates bounds, default lower bound 0, upper bound infinity
   bounds = np.zeros((coeffs0.size,2))
@@ -490,10 +533,10 @@ if __name__ == "__main__":
   print("loss at initial guess (two cases):",
       objective_two_cases(coeffs0, *args))
   
-  # print("loss at initial guess:", nonlinear_VSI_LE_cube(coeffs0, mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
-  # print("F_pred at [1,1] =", nonlinear_VSI_LE_cube(np.array([1.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
-  # print("F_pred at [2,1] =", nonlinear_VSI_LE_cube(np.array([2.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
-  # print("F_pred at [1,2] =", nonlinear_VSI_LE_cube(np.array([1.0,2.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("loss at initial guess:", hyperelastic_VSI(coeffs0, mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("F_pred at [1,1] =", hyperelastic_VSI(np.array([1.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("F_pred at [2,1] =", hyperelastic_VSI(np.array([2.0,1.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
+  # print("F_pred at [1,2] =", hyperelastic_VSI(np.array([1.0,2.0]), mesh_xdmf, rf2_top, loss_factor2, activate_basis_index))
 
   
   # folder_name = tendonStampList[index] + '/results/HGOHighOrderI1I2_SquaredNorm'

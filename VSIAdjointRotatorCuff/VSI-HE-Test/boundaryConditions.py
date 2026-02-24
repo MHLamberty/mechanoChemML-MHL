@@ -1,19 +1,43 @@
 from dolfin import near
+# Cube side length in mm
+L = 5.0
+TOL = 1e-6
 
 Cube5mm = {
   "equations": {
-    "Case1_Unconfined": {
-      "BottomFace": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, 1e-6),
-      "TopFace":    lambda f: f.exterior() and near(f.midpoint()[1], 5.0, 1e-6),
+      
+    "HE_Unconfined": {
+      "YMIN": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, TOL),
+      "YMAX": lambda f: f.exterior() and near(f.midpoint()[1], L, TOL),
     },
-    "Case2_Confined": {
-      "BottomFace": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, 1e-6),
-      "TopFace":    lambda f: f.exterior() and near(f.midpoint()[1], 5.0, 1e-6),
-      "XMin":       lambda f: f.exterior() and near(f.midpoint()[0], 0.0, 1e-6),
-      "XMax":       lambda f: f.exterior() and near(f.midpoint()[0], 5.0, 1e-6),
-      "ZMin":       lambda f: f.exterior() and near(f.midpoint()[2], 0.0, 1e-6),
-      "ZMax":       lambda f: f.exterior() and near(f.midpoint()[2], 5.0, 1e-6),
-    }
+
+    "HE_Confined": {
+      "YMIN": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, TOL),
+      "YMAX": lambda f: f.exterior() and near(f.midpoint()[1], L,   TOL),
+      "XMIN": lambda f: f.exterior() and near(f.midpoint()[0], 0.0, TOL),
+      "XMAX": lambda f: f.exterior() and near(f.midpoint()[0], L,   TOL),
+      "ZMIN": lambda f: f.exterior() and near(f.midpoint()[2], 0.0, TOL),
+      "ZMAX": lambda f: f.exterior() and near(f.midpoint()[2], L,   TOL),
+    },
+
+    "HE_PlaneStrain": {
+      "YMIN": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, TOL),
+      "YMAX": lambda f: f.exterior() and near(f.midpoint()[1], L,   TOL),
+      "ZMIN": lambda f: f.exterior() and near(f.midpoint()[2], 0.0, TOL),
+      "ZMAX": lambda f: f.exterior() and near(f.midpoint()[2], L,   TOL),
+    },
+
+    "HE_BiaxialStretch": {
+      "YMIN": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, TOL),
+      "YMAX": lambda f: f.exterior() and near(f.midpoint()[1], L,   TOL),
+      "XMIN": lambda f: f.exterior() and near(f.midpoint()[0], 0.0, TOL),
+      "XMAX": lambda f: f.exterior() and near(f.midpoint()[0], L,   TOL),
+    },
+
+    "HE_SimpleShear": {
+      "YMIN": lambda f: f.exterior() and near(f.midpoint()[1], 0.0, TOL),
+      "YMAX": lambda f: f.exterior() and near(f.midpoint()[1], L,   TOL),
+    },
   }
 }
 
