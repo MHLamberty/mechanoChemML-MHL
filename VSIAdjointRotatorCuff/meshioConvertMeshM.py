@@ -22,8 +22,8 @@ import meshio
 #         print(f"Converted {inp_file} → {xdmf_file} successfully.")
 
 base = Path(".")
-inp_file = base / "VSI-Test" / "TestVSI-Tets.inp"
-xdmf_file = base / "VSI-Test" / "TestVSI-Tets.xdmf"
+inp_file = base / "VSI-HE-Test" / "Strain_0p8" / "HE_Confined_0p8.inp"
+xdmf_file = base / "VSI-HE-Test" / "Strain_0p8" / "cube_mesh.xdmf"
 mesh = meshio.read(inp_file)
 meshio.write(xdmf_file, mesh)
 print(f"Converted {inp_file} → {xdmf_file} successfully.")
